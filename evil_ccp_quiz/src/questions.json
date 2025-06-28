@@ -5,9 +5,11 @@
         "answer": 3
     },
     {
-        "question": "Who recognizes the term Sick Building Syndrome?",
-        "options": ["NASA", "International Building Committee", "American Red Cross", "World Health Organization"],
-        "answer": 3
+        "question": "毛臘肉 (毛沢東) が直接か間接にどれぐらい支那人を殺した",
+        "options": ["6000～7000万人", "3000～4000万人", "1億人", "1000～2000万人"],
+        "answer": 0,
+        "link": "https://ta-ichikawa.com/?p=10099",
+        "link_title": "毛沢東にとっては、国民の半分が死ぬのは当たり前のことだった"
     },
     {
         "question": "What happens to SBS symptoms when people leave the building?",

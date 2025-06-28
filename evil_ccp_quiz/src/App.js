@@ -65,6 +65,13 @@ function App() {
                 <div>
                     Question {currentQuestion + 1} of {questions.length}
                 </div>
+                <br/>
+                {q.link &&
+                    <>
+                        <span>出典：</span>
+                        <a href={q.link} target="_blank">{q.link_title}</a>
+                    </>
+                }
             </div>
         </div>
     );
