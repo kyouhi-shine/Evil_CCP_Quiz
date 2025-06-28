@@ -12,6 +12,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://kyouhi-shine.github.io/Evil_CCP_Quiz/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
