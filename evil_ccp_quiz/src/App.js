@@ -76,7 +76,7 @@ function App() {
                 {question.link &&
                     <>
                         <span>出典：</span>
-                        <a href={question.link} target="_blank">{question.link_title}</a>
+                        <a href={question.link} target="_blank" rel="noopener noreferrer">{question.link_title}</a>
                     </>
                 }
             </div>
