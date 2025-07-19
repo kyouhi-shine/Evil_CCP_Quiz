@@ -26,6 +26,11 @@ h1 {
 .loading {
     margin-top: 35vh;
 }
+.next-btn {
+    color: rgb(0, 0, 238);
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .questions-title {
     font-size: 22px;

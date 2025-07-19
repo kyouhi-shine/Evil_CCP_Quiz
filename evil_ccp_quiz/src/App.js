@@ -61,7 +61,7 @@ function App() {
                         )
                     })}
                 </div>
-                <a href="" onClick={(e) => {e.preventDefault();nextQuestion()}} rel="noopener noreferrer">次へ</a>
+                <p className="next-btn" onClick={nextQuestion}>次へ</p>
                 <div>
                     Question {currentQuestion + 1} of {questionsLength}
                 </div>
