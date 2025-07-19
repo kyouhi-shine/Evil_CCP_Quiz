@@ -6,7 +6,6 @@ function App() {
     const [questionsLength, setQuestionsLength] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
-    const [flag, setFlag] = useState(false);
 
     useEffect(() => {
         fetch("https://shina-quiz-proxy.j5j2fgpfk7.workers.dev", {
@@ -27,7 +26,6 @@ function App() {
     }, [currentQuestion]);
 
     const handleAnswer = idx => {
-        if (flag) return;
         if (question.answer === question.clicked) return;
         setQuestion({
             ...question,
@@ -35,19 +33,14 @@ function App() {
         })
 
         if (idx === question.answer) {
-            setFlag(true);
             setScore(score + 1);
-            setTimeout(() => {
-                nextQuestion();
-                setFlag(false);
-            }, 1000);
         }
     };
     const nextQuestion = () => {
         if (currentQuestion < questionsLength - 1) setCurrentQuestion(prev => prev + 1);
     }
 
-    if (questionsLength === 0) return <div>Loading...</div>;
+    if (questionsLength === 0) return <div className="loading">Loading...</div>;
 
 
     return (
@@ -68,11 +61,15 @@ function App() {
                         )
                     })}
                 </div>
-                <div onClick={nextQuestion}>次へ</div>
+                <a href="" onClick={(e) => {e.preventDefault();nextQuestion()}} rel="noopener noreferrer">次へ</a>
                 <div>
                     Question {currentQuestion + 1} of {questionsLength}
                 </div>
-                <br/>
+                <p>
+                    {question.description && (question.answer === question.clicked) &&
+                        <span>説明：{question.description}</span>
+                    }
+                </p>
                 {question.link &&
                     <>
                         <span>出典：</span>

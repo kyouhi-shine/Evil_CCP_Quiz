@@ -23,6 +23,10 @@ h1 {
     margin-top: 0;
 }
 
+.loading {
+    margin-top: 35vh;
+}
+
 .questions-title {
     font-size: 22px;
     margin: 20px 0;
