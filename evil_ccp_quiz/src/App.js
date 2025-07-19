@@ -6,8 +6,10 @@ function App() {
     const [questionsLength, setQuestionsLength] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
+    const [flag, setFlag] = useState(false);
 
     useEffect(() => {
+        setFlag(true);
         fetch("https://shina-quiz-proxy.j5j2fgpfk7.workers.dev", {
             method: "POST",
             headers: {
@@ -22,6 +24,7 @@ function App() {
                     ...data.data[0],
                     clicked: -1
                 });
+                setFlag(false);
             })
     }, [currentQuestion]);
 
@@ -37,6 +40,7 @@ function App() {
         }
     };
     const nextQuestion = () => {
+        if (flag) return;
         if (currentQuestion < questionsLength - 1) setCurrentQuestion(prev => prev + 1);
     }
 
@@ -61,10 +65,8 @@ function App() {
                         )
                     })}
                 </div>
-                <p className="next-btn" onClick={nextQuestion}>次へ</p>
-                <div>
-                    Question {currentQuestion + 1} of {questionsLength}
-                </div>
+                <div className="next-btn" onClick={nextQuestion}>次へ</div>
+                <div>Question {currentQuestion + 1} of {questionsLength}</div>
                 <p>
                     {question.description && (question.answer === question.clicked) &&
                         <span>説明：{question.description}</span>

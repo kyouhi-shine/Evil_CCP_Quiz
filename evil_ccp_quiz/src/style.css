@@ -8,9 +8,10 @@ body {
 
 .game-container {
     background: rgba(255,255,255,0.85);
-    padding: 30px;
+    padding: 20px;
     border-radius: 20px;
-    margin-top: 50px;
+    margin-top: 40px;
+    margin-bottom: 10px;
     text-align: center;
     width: 75vw;
     max-width: 75vw;
@@ -29,6 +30,8 @@ h1 {
 .next-btn {
     color: rgb(0, 0, 238);
     cursor: pointer;
+    margin: 16px;
+    display: inline-block;
     text-decoration: underline;
 }
 
