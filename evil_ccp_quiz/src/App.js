@@ -9,23 +9,52 @@ function App() {
     const [flag, setFlag] = useState(false);
 
     useEffect(() => {
-        setFlag(true);
-        fetch("https://shina-quiz-proxy.j5j2fgpfk7.workers.dev", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: currentQuestion + 1 })
-        }).then(res => res.json())
-            .then(data => {
-                console.log("shina-quiz: ", data);
-                setQuestionsLength(data.total)
-                setQuestion({
-                    ...data.data[0],
-                    clicked: -1
+        const fetchQuestion = async () => {
+            setFlag(true);
+            try {
+                const id = currentQuestion + 1;
+
+                const tokenRes = await fetch("https://shina-quiz-proxy.j5j2fgpfk7.workers.dev/token", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ id })
                 });
+
+                const tokenData = await tokenRes.json();
+
+                if (!tokenData.success) {
+                    setFlag(false);
+                    return;
+                }
+
+                const { ts, token } = tokenData;
+                const dataRes = await fetch("https://shina-quiz-proxy.j5j2fgpfk7.workers.dev/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ id, ts, token })
+                });
+
+                const data = await dataRes.json();
+
+                if (data.success) {
+                    setQuestionsLength(data.total);
+                    setQuestion({
+                        ...data.data[0],
+                        clicked: -1
+                    });
+                } else {
+                }
+            } catch (err) {
+            } finally {
                 setFlag(false);
-            })
+            }
+        };
+
+        fetchQuestion();
     }, [currentQuestion]);
 
     const handleAnswer = idx => {
@@ -67,11 +96,17 @@ function App() {
                 </div>
                 <div className="next-btn" onClick={nextQuestion}>次へ</div>
                 <div>Question {currentQuestion + 1} of {questionsLength}</div>
-                <p>
-                    {question.description && (question.answer === question.clicked) &&
-                        <span>説明：{question.description}</span>
-                    }
-                </p>
+                {question.description && question.answer === question.clicked && (
+                  <p>
+                    説明：
+                    {question.description.split('\n').map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </p>
+                )}
                 {question.link &&
                     <>
                         <span>出典：</span>
