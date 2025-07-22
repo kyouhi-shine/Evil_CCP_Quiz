@@ -65,7 +65,7 @@ function App() {
         };
 
         fetchQuestion();
-    }, [currentQuestion]);
+    }, [currentQuestion, questionsLength]);
 
     const handleAnswer = idx => {
         if (question.answer === question.clicked) return;
