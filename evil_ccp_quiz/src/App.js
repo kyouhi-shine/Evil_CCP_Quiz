@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import DOMPurify from 'dompurify';
+
 import './style.css';
 
 function App() {
@@ -7,6 +9,10 @@ function App() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [flag, setFlag] = useState(false);
+
+    const cleanHtml = DOMPurify.sanitize(question?.description?.replace(/\n/g, '<br/>'), {
+        ALLOWED_ATTR: ['href', 'target', 'rel']
+    });
 
     useEffect(() => {
         const fetchQuestion = async () => {
@@ -19,7 +25,7 @@ function App() {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ id })
+                    body: JSON.stringify({ question_id: id })
                 });
 
                 const tokenData = await tokenRes.json();
@@ -35,17 +41,21 @@ function App() {
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ id, ts, token })
+                    body: JSON.stringify({ question_id: id, ts, token })
                 });
 
                 const data = await dataRes.json();
 
                 if (data.success) {
-                    setQuestionsLength(data.total);
-                    setQuestion({
-                        ...data.data[0],
-                        clicked: -1
-                    });
+                    if (questionsLength === 0) setQuestionsLength(data.total);
+                    if (data.data && data.data.length > 0) {
+                        setQuestion({
+                            ...data.data[0],
+                            clicked: -1
+                        });
+                    } else {
+                        setCurrentQuestion(prev => prev + 1);
+                    }
                 } else {
                 }
             } catch (err) {
@@ -73,7 +83,7 @@ function App() {
         if (currentQuestion < questionsLength - 1) setCurrentQuestion(prev => prev + 1);
     }
 
-    if (questionsLength === 0) return <div className="loading">Loading...</div>;
+    if (JSON.stringify(question) === "{}") return <div className="loading">読み込み中...</div>;
 
 
     return (
@@ -83,7 +93,7 @@ function App() {
                 <h2>得点：{score}</h2>
                 <p className="questions-title">{question.question}</p>
                 <div className="questions-answer-option">
-                    {question.options.map((opt, idx) => {
+                    {question?.options?.map((opt, idx) => {
                         let className = '';
                         if (question.clicked === idx) {
                             className = idx === question.answer ? 'correct' : 'wrong';
@@ -97,22 +107,12 @@ function App() {
                 <div className="next-btn" onClick={nextQuestion}>次へ</div>
                 <div>Question {currentQuestion + 1} of {questionsLength}</div>
                 {question.description && question.answer === question.clicked && (
-                  <p>
-                    説明：
-                    {question.description.split('\n').map((line, i) => (
-                      <React.Fragment key={i}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                  </p>
+                    <p
+                        dangerouslySetInnerHTML={{
+                            __html: '説明：' + cleanHtml
+                        }}
+                    />
                 )}
-                {question.link &&
-                    <>
-                        <span>出典：</span>
-                        <a href={question.link} target="_blank" rel="noopener noreferrer">{question.link_title}</a>
-                    </>
-                }
             </div>
         </div>
     );
