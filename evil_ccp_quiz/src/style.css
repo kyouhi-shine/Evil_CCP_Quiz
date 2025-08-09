@@ -46,7 +46,7 @@ h1 {
 }
 
 .game-container .questions-answer-option button {
-    background-color: rgba(106, 176, 76, 0.85);
+    background-color: #7bed9f;
     color: white;
     border: none;
     border-radius: 50px;

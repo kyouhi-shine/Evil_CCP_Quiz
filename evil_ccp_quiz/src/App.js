@@ -89,9 +89,9 @@ function App() {
     return (
         <div className="App">
             <div className="game-container">
-                <h1>支那のクイズ</h1>
+                <h1>{"支那のクイズ".replace(/支那/g, '中国')}</h1>
                 <h2>得点：{score}</h2>
-                <p className="questions-title">{question.question}</p>
+                <p className="questions-title">{question.question.replace(/支那/g, '中国')}</p>
                 <div className="questions-answer-option">
                     {question?.options?.map((opt, idx) => {
                         let className = '';
@@ -100,7 +100,7 @@ function App() {
                         }
 
                         return (
-                            <button className={className} key={idx} onClick={() => handleAnswer(idx)}>{opt}</button>
+                            <button className={className} key={idx} onClick={() => handleAnswer(idx)}>{ opt.replace(/支那/g, '中国') }</button>
                         )
                     })}
                 </div>
@@ -109,7 +109,7 @@ function App() {
                 {question.description && question.answer === question.clicked && (
                     <p
                         dangerouslySetInnerHTML={{
-                            __html: '説明：' + cleanHtml
+                            __html: '説明：' + cleanHtml.replace(/支那/g, '中国')
                         }}
                     />
                 )}
