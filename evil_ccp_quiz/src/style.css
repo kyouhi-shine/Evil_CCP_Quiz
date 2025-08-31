@@ -1,5 +1,4 @@
 body {
-    font-family: 'Comic Sans MS', cursive;
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,7 +12,7 @@ body {
     margin-top: 40px;
     margin-bottom: 10px;
     text-align: center;
-    width: 85vw;
+    width: 80vw;
     max-width: 90vw;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -26,6 +25,7 @@ h1 {
 
 .loading {
     margin-top: 35vh;
+    font-weight: bold;
 }
 .next-btn {
     color: rgb(0, 0, 238);
