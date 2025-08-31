@@ -13,8 +13,8 @@ body {
     margin-top: 40px;
     margin-bottom: 10px;
     text-align: center;
-    width: 75vw;
-    max-width: 75vw;
+    width: 85vw;
+    max-width: 90vw;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
@@ -80,7 +80,7 @@ button.wrong {
 .description {    
     text-align: left;
     white-space: pre-wrap;
-    padding-left: 10%;
+    padding-left: 5%;
 }
 
 #scoreboard {
