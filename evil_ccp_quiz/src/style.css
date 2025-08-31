@@ -33,8 +33,11 @@ h1 {
     margin: 16px;
     display: inline-block;
     text-decoration: underline;
+    -webkit-user-select: none;
 }
-
+.question-count {
+    -webkit-user-select: none;
+}
 .questions-title {
     font-size: 22px;
     margin: 20px 0;
@@ -72,6 +75,12 @@ button.correct {
 button.wrong {
     background-color: #c23616 !important;
     animation: shake 0.4s ease;
+}
+
+.description {    
+    text-align: left;
+    white-space: pre-wrap;
+    padding-left: 10%;
 }
 
 #scoreboard {

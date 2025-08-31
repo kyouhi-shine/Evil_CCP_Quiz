@@ -105,11 +105,10 @@ function App() {
                     })}
                 </div>
                 <div className="next-btn" onClick={nextQuestion}>次へ</div>
-                <div>Question {currentQuestion + 1} of {questionsLength}</div>
+                <div className="question-count">Question {currentQuestion + 1} of {questionsLength}</div>
                 {question.description && question.answer === question.clicked && (
-                    <p
-                        dangerouslySetInnerHTML={{
-                            __html: '説明：' + cleanHtml.replace(/支那/g, '中国')
+                    <p className="description" dangerouslySetInnerHTML={{
+                            __html: '📖説明：' + cleanHtml.replace(/支那/g, '中国')
                         }}
                     />
                 )}
